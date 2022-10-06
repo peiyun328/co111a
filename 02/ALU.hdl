@@ -43,28 +43,35 @@ CHIP ALU {
 
     PARTS:
    // Put you code here:
-   // zx
-    And16(a=x, b=false, out=zxTrue);
-    Mux16(a=zxTrue, b=x, sel=zx, out=muxxzx);
+   // if zx then x = 0
+    Mux16(a=x, b=false, sel=zx, out=outzx);
 
-    // nx
-    Not16(in=muxxzx, out=nox);
-    Mux16(a=muxxzx, b=nox, sel=nx, out=negx);
+    // if zy then y = 0
+    Mux16(a=y, b=false, sel=zy, out=outzy);
 
-    // zy
-    And16(a=y, b=false, out=zyTrue);
-    Mux16(a=zyTrue, b=y, sel=zy, out=muxyzy);
+    // if nx then x = !x
+    Not16(in=outzx, out=notnx);
+    Mux16(a=outzx, b=notnx, sel=nx, out=negx);
 
-    // ny
-    Not16(in=muxyzy, out=noy);
-    Mux16(a=muxyzy, b=noy, sel=ny, out=negy);
+    // if ny then y = !y
+    Not16(in=outzy, out=notny);
+    Mux16(a=outzy, b=notny, sel=ny, out=negy);
 
-    // f
-    And16(a=negx, b=negy, out=xandy);
+    // if f then out = x + y,else out = x & y
     Add16(a=negx, b=negy, out=xaddy);
+    And16(a=negx, b=negy, out=xandy);
     Mux16(a=xandy, b=xaddy, sel=f, out=fxy);
 
-    // no
-    Not16(in=fxy, out=nofxy);
-    Mux16(a=fxy, b=nofxy, sel=no, out=out);
+    // if no then out = !out
+    Not16(in=fxy, out=notfxy);
+    Mux16(a=fxy, b=notfxy, sel=no, out[0..7]=ret0, out[8..14]=ret1, out[15]=retsign, out=out);
+
+    Or8Way(in[0..7]=ret0, out=ret0is0);
+    Or8Way(in[0..6]=ret1, in[7]=retsign, out=ret1is0);
+
+    Or(a=ret0is0, b=ret1is0, out=yzr);
+    Not(in=yzr, out=zr);
+
+    // if out < 0 then ng = 1 else ng = 0
+    And(a=retsign, b=true, out=ng);
 }
