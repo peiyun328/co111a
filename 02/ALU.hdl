@@ -43,6 +43,8 @@ CHIP ALU {
 
     PARTS:
    // Put you code here:
+   //這個ALU程式是上網複製再把命名修改一點成我看得懂的名稱
+   //雖然有看圖和表對照，但還是有點不清楚原理
    // if zx then x = 0
     Mux16(a=x, b=false, sel=zx, out=outzx);
 
