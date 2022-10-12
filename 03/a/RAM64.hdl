@@ -1,3 +1,4 @@
+//此習題參考網路上圖片再寫程式
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -16,4 +17,15 @@ CHIP RAM64 {
 
     PARTS:
     // Put your code here:
+    DMux8Way(in=load, sel=address[3..5], a=loa, b=lob, c=loc, d=lod, e=loe, f=lof, g=log, h=loh);
+    
+    RAM8(in=in, load=loa, address=address[0..2], out=outa);
+    RAM8(in=in, load=lob, address=address[0..2], out=outb);
+    RAM8(in=in, load=loc, address=address[0..2], out=outc);
+    RAM8(in=in, load=lod, address=address[0..2], out=outd);
+    RAM8(in=in, load=loe, address=address[0..2], out=oute);
+    RAM8(in=in, load=lof, address=address[0..2], out=outf);
+    RAM8(in=in, load=log, address=address[0..2], out=outg);
+    RAM8(in=in, load=loh, address=address[0..2], out=outh);
+    Mux8Way16(a=outa, b=outb, c=outc, d=outd, e=oute, f=outf, g=outg, h=outh, sel=address[3..5], out=out);
 }
