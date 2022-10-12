@@ -1,3 +1,4 @@
+此習題參考網路圖片再寫程式
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -16,4 +17,14 @@ CHIP RAM8 {
 
     PARTS:
     // Put your code here:
+    DMux8Way(in=load, sel=address, a=loa, b=lob, c=loc, d=lod, e=loe, f=lof, g=log, h=loh);
+    Register(in=in, load=loa, out=re0);
+    Register(in=in, load=lob, out=re1);
+    Register(in=in, load=loc, out=re2);
+    Register(in=in, load=lod, out=re3);
+    Register(in=in, load=loe, out=re4);
+    Register(in=in, load=lof, out=re5);
+    Register(in=in, load=log, out=re6);
+    Register(in=in, load=loh, out=re7);
+    Mux8Way16(a=re0, b=re1, c=re2, d=re3, e=re4, f=re5, g=re6, h=re7, sel=address,out=out);
 }
