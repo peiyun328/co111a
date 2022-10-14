@@ -46,7 +46,7 @@ CHIP CPU {
          out[2]=j1, out[1]=j2, out[0]=j3);
 
     //1st Mux16
-    Not(in=isC, out=notc);
+    	Not(in=isC, out=notc);
 	Mux16(a=aluout, b=instruction, sel=notc, out=mux16out);
 
     //A register
@@ -58,7 +58,7 @@ CHIP CPU {
 	Mux16(a=A, b=inM, sel=AorM, out=AM);
 	
     //D register
-    And(a=isC, b=d2, out=intoDreg);
+    	And(a=isC, b=d2, out=intoDreg);
 	DRegister(in=aluout, load=intoDreg, out=Dregout);
 
     //ALU
