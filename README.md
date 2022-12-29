@@ -9,3 +9,4 @@
 學校科系 | [金門大學資訊工程系](https://www.nqu.edu.tw/educsie/index.php)
 課程教材 | https://gitlab.com/cccnqu111/co
 
+[上課筆記](https://reinvented-wrench-846.notion.site/8ee26caf85734908b1df19bac32f3302)
